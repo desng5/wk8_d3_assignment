@@ -14,9 +14,9 @@ type User={
     cart: Item[]
 }
 
-function createUser({name,age}:{name:string age:number}){
+function createUser({name,age}:{name:string, age:number}){
     
-    const use: User={
+    const user: User={
         name,
         age,
         id:uuidv4(),
@@ -40,13 +40,13 @@ function addToCart(user:User, item:Item){
 }
 
 function removeFromCart(user:User, item:Item){
-    user.cart-user.cart.filter((i)=>i.id !== item.id)
+    user.cart = user.cart.filter((i)=>i.id !== item.id)
 }
 
-function removeQuantityFromCart(user:User, itemItem, qty:number){
+function removeQuantityFromCart(user:User, item:Item, qty:number){
     let i= 0
     while (i<qty){
-        user.cart.splice(user.cart.findIndex((i)=> i.id == itemItem.id), 1)
+        user.cart.splice(user.cart.findIndex((i)=> i.id == item.id), 1)
         i++
     }
 }
@@ -66,7 +66,7 @@ function printCart(user:User){
 }
 
 const user = createUser({name:"Jade", age:27})
-const roseBoquet = createItem({"Rose Boquet", price: 75.99, description: "Large Boquet of Roses for celebration"})
+const roseBoquet = createItem({name: "Rose Boquet", price: 75.99, description: "Large Boquet of Roses for celebration"})
 const lilyBoquet = createItem({name:"Lily Boquet", price:70.99, description: "Hawaiian Lillies for all occasions"})
 const tulipBoquet = createItem({name:"Tulip Boquet", price:40.99, description:"Vibrant and cololful display for all occasions"})
 
@@ -83,7 +83,7 @@ console.log(cartTotal(user))
 
 addToCart(user,tulipBoquet)
 addToCart(user,tulipBoquet)
-addToCart(user, tulipBoquet
+addToCart(user, tulipBoquet)
 printCart(user)
 console.log(cartTotal(user))
 
@@ -91,9 +91,10 @@ console.log(cartTotal(user))
 removeFromCart(user,lilyBoquet)
 printCart(user)
 
-console.log(cartTotal(user), "removed airforce ones")
-
-console.log(removeQuantityFromCart(user,timberlands,2), "here")
-printCart(user)
+console.log(cartTotal(user), "removed lilyBoquet")
 
 console.log(cartTotal(user))
+
+removeQuantityFromCart(user, tulipBoquet, 2)
+printCart(user)
+console.log(cartTotal(user), "2 Tulips removed")
